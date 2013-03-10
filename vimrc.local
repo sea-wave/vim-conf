@@ -1,0 +1,128 @@
+" ==================================================
+" Key mapping
+" ==================================================
+
+" Settings tags usage
+"map  <S-F8>   :!~/bin/create_ctags.sh<CR> :set tags=~/mytags/afa_php<CR>
+"set textwidth=80        " Try this out to see how textwidth helps
+set textwidth=0        " Try this out to see how textwidth helps
+set nowrap
+" Columns and lines
+"set colorcolumn=80
+"set colorcolumn=0 " Setting in order not to see the color column
+set noexpandtab     " Tab to as tab by default
+"set retab
+
+" ==================================================
+" Omni Completion
+" ==================================================
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+autocmd Filetype html setlocal ts=4 sw=4 noexpandtab
+autocmd Filetype xhtml setlocal ts=4 sw=4 noexpandtab
+autocmd Filetype xml setlocal ts=4 sw=4 noexpandtab
+autocmd Filetype css setlocal ts=4 sw=4 noexpandtab
+autocmd Filetype less setlocal ts=4 sw=4 expandtab
+autocmd Filetype ruby setlocal ts=4 sw=4 expandtab
+autocmd Filetype python setlocal ts=4 sw=4 expandtab
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+autocmd Filetype php setlocal ts=4 sw=4 sts=0 noexpandtab | map  <S-F6>   :w<CR>:!/usr/bin/php %<CR>| map  <S-F8>   :!~/bin/create_ctags.sh<CR> :set tags=~/mytags/afa_php<CR>
+autocmd Filetype perl setlocal ts=4 sw=4 sts=0 noexpandtab | map  <S-F6>   :w<CR>:!/usr/bin/perl %<CR>
+
+command! Px %!xmllint --format -
+
+if has("gui_running")
+    set colorcolumn=0
+    set guifont=Bitstream\ Vera\ Sans\ mono\ 10 " use this font
+endif
+
+
+if has("vms")
+    set nobackup        " do not keep a backup file, use versions instead
+else
+    set backup      " keep a backup file
+    set backupdir=~/.backup,/tmp
+endif
+
+" ==================================================
+" Hebrew
+" ==================================================
+
+" TODO: condition this with the availability of bidi support
+nmenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   :set invrightleft<CR>:set hkmap<CR>
+vmenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   <ESC>:set invrightleft<CR><ESC>:set hkmap<CR>
+imenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   <C-O>:set invrightleft<CR><C-O>:set hkmap<CR>
+cmenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   <C-C>:set invrightleft<CR><C-C>:set hkmap<CR>
+omenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   <ESC>:set invrightleft<CR><ESC>:set hkmap<CR>
+tmenu Heb&rew.&Toggle\ Heb<->Eng\ \(F11\)   Switch between english mode and hebrew mode
+nmenu Heb&rew.Toggle\ &Visual\ \(F12\)      :set invrevins<CR>:set invhk<CR>
+imenu Heb&rew.Toggle\ &Visual\ \(F12\)      <C-_>
+amenu Heb&rew.-sep1-                <nul>
+
+" The follwing can serve to demonstrate exactly what can be done,
+" but it is quite useless...
+" note that "rl" can be a shorthand for "rightleft"
+amenu Heb&rew.RTL\ Display          :set rightleft<CR>
+amenu Heb&rew.LTR\ Display          :set norightleft<CR>
+amenu Heb&rew.Toggle\ RTL-LTR\ &Display     :set invrightleft<CR>
+amenu Heb&rew.-sep2-                <nul>
+" note that "hk" can be a shorthand for "hkmap"
+amenu Heb&rew.Hebrew\ Keyboard          :set hkmap<CR>
+amenu Heb&rew.English\ Keyboard         :set nohkmap<CR>
+amenu Heb&rew.Toggle\ &Keyboard         :set invhkmap<CR>
+amenu Heb&rew.-sep3-                        <nul>
+" useful for editing visual-hebrew texts:
+" note that "ri" can be a shorthand for "revins"
+amenu Heb&rew.Inverted\ Keyboard        :set revins<CR>
+amenu Heb&rew.Normal\ Keyboard          :set norevins<CR>
+amenu Heb&rew.Toggle\ &Inverted\ Keyboard   :set invrevins<CR>
+amenu Heb&rew.-sep4-                <nul>
+" note that "ari" can be a shorthand for "allowrevins"
+amenu Heb&rew.Enable\ ^-_           :set allowrevins<CR>
+amenu Heb&rew.Disable\ ^-_          :set noallowrevins<CR>
+amenu Heb&rew.Toggle\ ^-_           :set invallowrevins<CR>
+
+
+" I'm not sure that the following is needed(or maybe only leave the
+" "toggle" button), and if it is there bound to be a way to make it more
+" elegant. Anyway - I have not bothered to create icons yet...
+
+" Add heb&rew buttons to the toolbar
+nmenu 1.1000 ToolBar.English    :set norightleft<CR>:set nohkmap<CR>
+vmenu 1.1000 ToolBar.English    <Esc>:set norightleft<CR><Esc>:set nohkmap<CR>
+imenu 1.1000 ToolBar.English    <C-O>:set norightleft<CR><C-O>:set nohkmap<CR>
+cmenu 1.1000 ToolBar.English    <C-C>:set norightleft<CR><C-C>:set nohkmap<CR>
+omenu 1.1000 ToolBar.English    <Esc>:set norightleft<CR><Esc>:set nohkmap<CR>
+
+tmenu ToolBar.English       Switch to English
+
+" the following item does not seem to work. I can't figure out why
+amenu 1.1010 ToolBar.TogHeb <C-_>
+"nmenu 1.1010 ToolBar.TogHeb    :set invrightleft<CR>:set invhkmap<CR>
+"vmenu 1.1010 ToolBar.TogHeb    <Esc>:set invrightleft<CR><Esc>:set invhkmap<CR>
+"imenu 1.1010 ToolBar.TogHeb    <C-O>:set invrightleft<CR><C-O>:set invhkmap<CR>
+"cmenu 1.1010 ToolBar.TogHeb    <C-C>:set invrightleft<CR><C-C>:set invhkmap<CR>
+"omenu 1.1010 ToolBar.TogHeb    <Esc>:set invrightleft<CR><Esc>:set invhkmap<CR><Esc>
+tmenu ToolBar.TogHeb        Toggle Hebrew <-> English
+
+nmenu 1.1020 ToolBar.TogHeb :set rightleft<CR>:set hkmap<CR>
+vmenu 1.1020 ToolBar.Hebrew <Esc>:set rightleft<CR><Esc>:set hkmap<CR>
+imenu 1.1020 ToolBar.Hebrew <C-O>:set rightleft<CR><C-O>:set hkmap<CR>
+cmenu 1.1020 ToolBar.Hebrew <C-C>:set rightleft<CR><C-C>:set hkmap<CR>
+omenu 1.1020 ToolBar.Hebrew <Esc>:set rightleft<CR><Esc>:set hkmap<CR><Esc>
+tmenu ToolBar.Hebrew        Switch to Hebrew
+
+" add a hebrew help item (:help hebrew) to the help menu
+amenu 9999.25 &Help.He&brew     :help hebrew<CR>
+"
+
+
+" ==================================================
+" Dictionary completion
+" ==================================================
+
+" The completion dictionary is provided by Rasmus:
+" http://lerdorf.com/funclist.txt
+set dictionary-=~/.vim/php_functions_lists.txt dictionary+=~/.vim/php_functions_lists.txt
+" Use the dictionary completion
+set complete-=k complete+=k
